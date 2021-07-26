@@ -1,0 +1,297 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+body {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(144,187,159,1) 0%, rgba(165,205,213,1) 100%);
+}
+
+.App {
+    font-family: "Poppins";
+    height: 100%;
+    width: 100%;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    .form-group {
+        label {
+            font-size: 14px;
+            margin-right: 15px;
+        }
+
+        .form-control {
+            background-color: whitesmoke;
+            border: 2px solid #ffafa2;
+            color:#242731;
+            padding: 2px;
+            border-radius: 2px;
+            font-family: inherit;
+        }
+
+        .btn {
+            background-color: transparent;
+            border: 2px solid #ffafa2;
+            color: whitesmoke;
+            padding: 2px;
+            border-radius: 1px;
+            margin-left: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                color: red;
+            }
+        }
+
+        .amountInput {
+            background-color: whitesmoke;
+            border: 2px solid #ffafa2;
+            color:#242731;
+            padding: 2px;
+            border-radius: 1px;
+            font-family: inherit;
+            display: inline;
+        }
+    }
+
+    .topBar {
+        position: sticky;
+        //top: 0;
+        //height: 5vw;
+        width: 960px;
+        //background-color: black;
+
+        .container {
+            display: flex;
+            width: 100%;
+            align-items: bottom;
+            justify-content: center;
+            
+            .topBarItemContainer {
+                max-width: 100%;
+                display: inline;
+                font-size: 20px;
+                bottom: 0;
+                position: absolute;
+                
+                .navbar-item {
+                    display: inline;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    padding: 20px;
+
+                    .nav-link {
+                        list-style-type: none;
+                        text-decoration: none;
+                        color: whitesmoke;
+                        font-weight: 600;
+                        display: inline-block;
+                        transition: all 0.15s ease;
+
+                        &:hover {
+                            transition: all 0.15s ease;
+                            text-decoration: underline;
+                            transform:translate(1px,-1px);
+                            color: white;
+                        }
+                    }
+
+                    .nav-link-small {
+                        font-size: 13px;
+                        margin-left: 40px;
+                    }
+                }
+            }
+        }
+    }
+
+    .sections {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            top: 5vw;
+            max-width: 960px;
+    }
+
+
+    .foodList {
+        font-weight: 200;
+        color:#242731;
+
+        .foodListHeader{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            h3{
+                font-size: 20px;
+                margin-right: 20px;
+            }
+
+            .amountInput {
+                background-color: whitesmoke;
+                border: 2px solid #ffafa2;
+                color:#242731;
+                padding: 2px;
+                border-radius: 1px;
+                font-family: inherit;
+                display: inline;
+            }
+
+            .btn {
+                background-color: transparent;
+                border: 2px solid #ffafa2;
+                color: black;
+                padding: 2px;
+                border-radius: 1px;
+                margin-left: 8px;
+                font-family: inherit;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: red;
+                    transition: all 0.1s ease;
+                }
+            }
+        }
+
+        .table {
+            font-size: 12px;
+            font-weight: 300;
+            width: 100%;
+            text-align: left;
+            border: 1px solid gray;
+
+            thead {
+                    tr {
+                        margin-left: 5px;
+                        margin-right: 5px;
+
+                        .nameCell {
+                            width: 10%;
+                        }
+
+                        td{
+                            max-width: 30%;
+                            text-overflow: ellipsis;
+                        }
+                    }
+            }
+        }
+    }
+
+    .search {
+        display: flex;
+        width: 960px;
+        height: 500px;
+        color: white;
+
+        .leftContainer {
+            border: 2px solid #415963;
+            border-radius: 10px;
+            margin-right: 5px;
+            padding: 5px;
+            flex: 1;
+            overflow: auto;
+            font-size: 15px;
+
+            .searchInput {
+                background-color: whitesmoke;
+                border: 2px solid #ffafa2;
+                color:#242731;
+                padding: 2px;
+                border-radius: 2px;
+                font-family: inherit;
+            }
+
+            .searchButton {
+                background-color: transparent;
+                border: 2px solid #ffafa2;
+                color: black;
+                padding: 2px;
+                border-radius: 1px;
+                margin-left: 8px;
+                font-family: inherit;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.5s ease;
+
+                &:hover {
+                    color: red;
+                    transition: all 0.1s ease;
+                }
+            }
+
+            .searchResults {
+
+                .searchResultsItem{
+
+                    &:hover {
+                        color: red;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .rightContainer {
+            border: 2px solid #415963;
+            border-radius: 10px;
+            padding: 5px;
+            flex: 1;
+            margin-right: 5px;
+            align-items: center;
+
+            .amountButton {
+                background-color: transparent;
+                border: 2px solid #ffafa2;
+                color: black;
+                padding: 2px;
+                border-radius: 1px;
+                margin-left: 8px;
+                font-family: inherit;
+                font-weight: 600;
+                cursor: pointer;
+
+                &:hover {
+                    color: red;
+                }
+            }
+
+            .amountInput {
+                background-color: whitesmoke;
+                border: 2px solid #ffafa2;
+                color:#242731;
+                padding: 2px;
+                border-radius: 1px;
+                font-family: inherit;
+            }
+
+            .productInfo {
+                margin-left: 10px;
+
+                .productInfoTable {
+                    font-size: 15px;
+                    text-align: left;
+
+                    caption {
+                        text-align: left;
+                        font-size: 15px;
+                    }
+
+                    td {
+                        text-align: right;
+                    }
+                }
+
+                h2 {
+                    font-size: 20px;
+                }     
+            }
+        }
+    }
+}
