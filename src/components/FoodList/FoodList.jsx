@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import portionService from "../services/portionServices";
+import portionService from "../../services/portionServices";
 import ReactDatePicker from "react-datepicker";
+import "./foodlist.scss";
 
 const months = [
   "Jan",
@@ -20,25 +21,12 @@ const months = [
 ];
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-{
-  (() => {})();
-}
-
-const foobarLength = ("foo" + "bar").length;
-
 const Food = (props) => (
   <tr>
     {/* <td className="nameCell">{props.food.email}</td> */}
     <td>{props.food.food}</td>
     <td>{props.food.amount}</td>
     <td>
-      {(() => {
-        const date = new Date(props.food.date);
-        const day = date.getDay();
-        const month = date.getMonth();
-
-        return `${day} ${month} jne`;
-      })()}
       {days[new Date(props.food.date).getDay()] +
         " " +
         new Date(props.food.date).getDate() +

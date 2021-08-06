@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
+import "./topbar.scss";
 
 export default function TopbarLogged() {
   return (
     <div className="topBar">
       <div className="container">
-        {/*         <Link to="/" className="topBarLogo">
-          Nutrilator
-        </Link> */}
         <div className="topBarItemContainer">
           <ul className="topBarItemList">
-            {}
+            <li className="navbar-item">
+              <p className="navbar-header">MACROLATOR</p>
+            </li>
             <li className="navbar-item">
               <Link to="/history" className="nav-link">
                 HISTORIA

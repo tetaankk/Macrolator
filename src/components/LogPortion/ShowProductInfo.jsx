@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import ShowPortionInfo from "./ShowPortionInfo";
-import portionService from "../services/portionServices";
+import portionService from "../../services/portionServices";
 
 export default function ShowProductInfo(props) {
   const [inputAmount, setInputAmount] = useState("");

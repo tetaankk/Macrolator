@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "../../common.scss";
 
 export default class Login extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      message: "",
     };
   }
 
@@ -35,11 +37,13 @@ export default class Login extends Component {
       password: this.state.password,
     };
 
-    axios.post("http://localhost:5000/auth", user).then((res) => {
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
-      console.log(localStorage.getItem("currentUser"));
-      window.location = "/history";
-    });
+    axios
+      .post("http://localhost:5000/auth", user)
+      .then((res) => {
+        localStorage.setItem("currentUser", JSON.stringify(res.data));
+        window.location = "/history";
+      })
+      .catch((err) => this.setState({ message: err }));
 
     this.setState({
       email: "",
@@ -50,36 +54,31 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <h3 style={{ "font-size": "20px" }}>Kirjaudu sisään</h3>
+        <h3 style={{ fontSize: "20px" }}>Kirjaudu sisään</h3>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Sähköpostiosoite: </label>
+          <div className="form-field">
+            {this.state.message && <h2>{this.state.message}</h2>}
+            <label>Sähköpostiosoite </label>
             <input
               type="email"
               required
-              className="form-control"
               placeholder="Sähköpostiosoite..."
               value={this.state.email}
               onChange={this.onChangeEmail}
             />
           </div>
-          <div className="form-group">
-            <label>Salasana: </label>
+          <div className="form-field">
+            <label>Salasana </label>
             <input
               type="password"
               required
-              className="form-control"
               placeholder="Salasana..."
               value={this.state.password}
               onChange={this.onChangePassword}
             />
           </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Kirjaudu sisään"
-              className="btn btn-primary"
-            />
+          <div className="form-field">
+            <input type="submit" value="Kirjaudu sisään" />
           </div>
         </form>
       </div>

@@ -1,6 +1,6 @@
-import "../App.scss";
 import React, { useState } from "react";
 import ShowProductInfo from "./ShowProductInfo";
+import "./logportion.scss";
 
 export default function Search() {
   const [toSearch, setToSearch] = useState("");

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "../../common.scss";
 
 export default class Register extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class Register extends Component {
     this.state = {
       email: "",
       password: "",
+      message: "",
     };
   }
 
@@ -51,45 +53,29 @@ export default class Register extends Component {
       <div>
         <h3 style={{ fontSize: "20px" }}>Luo käyttäjä</h3>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
+          {/* {this.state.message && <h2>{this.state.message}</h2>} */}
+          <div className="form-field">
             <label>Sähköpostiosoite: </label>
             <input
               type="email"
               required
-              className="form-control"
               placeholder="Sähköposti..."
               value={this.state.email}
               onChange={this.onChangeEmail}
             />
           </div>
-          <div className="form-group">
-            <label>Password: </label>
+          <div className="form-field">
+            <label>Salasana: </label>
             <input
               type="password"
               required
-              className="form-control"
               placeholder="Salasana..."
               value={this.state.password}
               onChange={this.onChangePassword}
             />
           </div>
-          <div className="form-group">
-            <label>Vahvista salasana: </label>
-            <input
-              type="password"
-              required
-              className="form-control"
-              placeholder="Salasana uudelleen..."
-              value={this.state.password}
-              onChange={this.onChangePassword}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Luo käyttäjä"
-              className="btn btn-primary"
-            />
+          <div className="form-field">
+            <input type="submit" value="Luo käyttäjä" />
           </div>
         </form>
       </div>

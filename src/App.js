@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-
 import LoggedPage from "./pages/LoggedPage";
 import NotLoggedPage from "./pages/NotLoggedPage";
 
@@ -25,6 +24,7 @@ function App() {
           <Switch>{auth ? <LoggedPage /> : <NotLoggedPage />}</Switch>
         </Router>
       </div>
+      <footer>(c) Tero Ankkuri 2021</footer>
     </div>
   );
 }
