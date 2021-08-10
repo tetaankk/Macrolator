@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:5000/";
+const baseUrl = "https://macrolator.herokuapp.com/";
 
 const login = (user) => {
   return axios.post(`${baseUrl}auth`, user);

@@ -27,15 +27,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-/* app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers"
-    //"Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-}); */
-
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 
