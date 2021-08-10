@@ -1,12 +1,12 @@
 import express from "express";
-const authRouter = express.Router();
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const jwtSecret = process.env.jwtSecret;
-import auth from "../middleware/auth.js";
+//import auth from "../middleware/auth.js";
 import User from "../models/user.model.js";
+const authRouter = express.Router();
 
 // @route POST /auth
 // @desc Login / authenticate user
@@ -42,7 +42,7 @@ authRouter.post("/", (request, response) => {
   });
 });
 
-authRouter.get("/user", auth, (request, response) => {
+authRouter.get("/user", (request, response) => {
   User.findById(request.user.id)
     .select("-password")
     .then((user) => res.json(user));
