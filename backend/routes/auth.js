@@ -14,6 +14,7 @@ import User from "../models/user.model.js";
 authRouter.post("/", (request, response) => {
   const body = request.body;
   console.log(body);
+  console.log("asd");
 
   // Simple validation on both email and password
   if (!body.email || !body.password) {

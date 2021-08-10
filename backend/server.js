@@ -2,12 +2,10 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import path from "path";
-//import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.options("*", cors());
@@ -41,10 +39,10 @@ import usersRouter from "./routes/users.js";
 import authRouter from "./routes/auth.js";
 import fetchRouter from "./routes/fetch.js";
 
-app.use("/foods", foodsRouter);
-app.use("/users", usersRouter);
-app.use("/auth", authRouter);
-app.use("/fetch", fetchRouter);
+app.use("/api/foods", foodsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/fetch", fetchRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/../build")));
@@ -58,6 +56,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
