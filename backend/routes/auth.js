@@ -1,5 +1,5 @@
 import express from "express";
-const router = express.Router();
+const authRouter = express.Router();
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -49,4 +49,4 @@ router.get("/user", auth, (request, response) => {
     .then((user) => res.json(user));
 });
 
-export default router;
+export default authRouter;
