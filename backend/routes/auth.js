@@ -13,6 +13,12 @@ import User from "../models/user.model.js";
 
 const authRouter = () => {
   const router = express.Router();
+
+  router.get("/", (request, response) => {
+    console.log("called /api/auth");
+    response.status(200).json({ status: "OK" });
+  });
+
   router.post("/", (request, response) => {
     const body = request.body;
     console.log(body);
