@@ -14,9 +14,6 @@ const authRouter = express.Router();
 
 authRouter.post("/", (request, response) => {
   const body = request.body;
-  console.log(body);
-  console.log("asd");
-
   // Simple validation on both email and password
   if (!body.email || !body.password) {
     return response.status(400).json({ msg: "Please fill all fields" });
