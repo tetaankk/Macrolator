@@ -1,11 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const path = require("path");
-
-const jwt = require("jsonwebtoken");
-
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import path from "path";
+//import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,13 +21,15 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const foodsRouter = require("./routes/foods");
-const usersRouter = require("./routes/users");
-const authRouter = require("./routes/auth");
+import foodsRouter from "./routes/foods.js";
+import usersRouter from "./routes/users.js";
+import authRouter from "./routes/auth.js";
+import fetchRouter from "./routes/fetch.js";
 
 app.use("/foods", foodsRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/fetch", fetchRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/../build")));

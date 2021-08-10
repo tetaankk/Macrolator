@@ -10,35 +10,10 @@
         h3{
             font-size: 20px;
             margin-right: 20px;
+            word-wrap: none;
         }
 
-        .amountInput {
-            background-color: whitesmoke;
-            border: 2px solid #ffafa2;
-            color:#242731;
-            padding: 2px;
-            border-radius: 1px;
-            font-family: inherit;
-            display: inline;
-        }
 
-        .btn {
-            background-color: transparent;
-            border: 2px solid #ffafa2;
-            color: black;
-            padding: 2px;
-            border-radius: 1px;
-            margin-left: 8px;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-
-            &:hover {
-                color: red;
-                transition: all 0.1s ease;
-            }
-        }
     }
 
     .table {
@@ -53,15 +28,48 @@
                     margin-left: 5px;
                     margin-right: 5px;
 
-                    .nameCell {
-                        width: 10%;
-                    }
-
                     td{
-                        max-width: 30%;
-                        text-overflow: ellipsis;
+                        //text-overflow: ellipsis;
+                        overflow: hidden;
                     }
                 }
+        }
+    }
+    form{
+        display: inline-block;
+        text-align: left;
+
+        .datepicker{
+            width: fit-content;
+        }
+
+        input {
+            background-color: whitesmoke;
+            border: 2px solid #ffafa2;
+            color:#242731;
+            padding: 2px 5px;
+            border-radius: 10px;
+            font-family: inherit;
+    
+            &:focus{
+                outline: none;
+            }
+        }
+    
+        button {
+            background-color: transparent;
+            border: 2px solid #ffafa2;
+            color: black;
+            padding: 2px;
+            border-radius: 10px;
+            margin-left: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+    
+            &:hover {
+                color: red;
+            }
         }
     }
 }

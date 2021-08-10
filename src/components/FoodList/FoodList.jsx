@@ -1,62 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import portionService from "../../services/portionServices";
+import portionServices from "../../services/portionServices";
 import ReactDatePicker from "react-datepicker";
 import "./foodlist.scss";
-
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jul",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-const Food = (props) => (
-  <tr>
-    {/* <td className="nameCell">{props.food.email}</td> */}
-    <td>{props.food.food}</td>
-    <td>{props.food.amount}</td>
-    <td>
-      {days[new Date(props.food.date).getDay()] +
-        " " +
-        new Date(props.food.date).getDate() +
-        ". " +
-        months[new Date(props.food.date).getMonth()] +
-        " " +
-        new Date(props.food.date).getFullYear()}
-    </td>
-    {/* <td>{props.food.date.substring(0, 10)}</td> */}
-    <td>{Math.round(props.food.energy)}</td>
-    <td>{Math.round(props.food.carbohydrate)}</td>
-    <td>{Math.round(props.food.protein)}</td>
-    <td>{Math.round(props.food.fat)}</td>
-    <td>
-      <Link style={{ color: "#242731" }} to={"/edit/" + props.food._id}>
-        muokkaa
-      </Link>{" "}
-      |{" "}
-      <button
-        style={{ color: "#242731" }}
-        onClick={() => {
-          props.deleteFood(props.food._id);
-        }}
-      >
-        {" "}
-        x
-      </button>
-    </td>
-  </tr>
-);
+import Food from "./Food";
 
 export default class FoodsList extends Component {
   constructor(props) {
@@ -72,8 +18,8 @@ export default class FoodsList extends Component {
 
   componentDidMount() {
     const loggedUser = JSON.parse(localStorage.getItem("currentUser"));
-    axios
-      .get("http://localhost:5000/foods")
+    portionServices
+      .getAll()
       .then((response) => {
         this.setState({
           foods: response.data.filter(
@@ -87,7 +33,7 @@ export default class FoodsList extends Component {
   }
 
   deleteFood(id) {
-    portionService.remove(id);
+    portionServices.remove(id);
     this.setState({
       foods: this.state.foods.filter((element) => element._id !== id),
     });
@@ -164,44 +110,45 @@ export default class FoodsList extends Component {
       <div className="foodList">
         <div className="foodListHeader">
           <h3>Kirjatut annokset</h3>
-          <ReactDatePicker
-            className="amountInput"
-            selected={this.state.date}
-            onChange={this.handleDateChange}
-            dateFormat="dd/MM/yyyy"
-          />
-          <button
-            className="btn"
-            onClick={() => this.setState({ date: new Date() })}
-          >
-            Tänään
-          </button>
-          <button
-            className="btn"
-            onClick={() =>
-              this.setState({
-                date: new Date(new Date().setDate(new Date().getDate() - 1)),
-              })
-            }
-          >
-            Eilen
-          </button>
-          <button
-            className="btn"
-            onClick={() =>
-              this.setState({
-                date: "",
-              })
-            }
-          >
-            Kaikki
-          </button>
+          <form>
+            <ReactDatePicker
+              selected={this.state.date}
+              onChange={this.handleDateChange}
+              dateFormat="dd/MM/yyyy"
+              className="datepicker"
+            />
+            <button
+              type="button"
+              onClick={() => this.setState({ date: new Date() })}
+            >
+              Tänään
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                this.setState({
+                  date: new Date(new Date().setDate(new Date().getDate() - 1)),
+                })
+              }
+            >
+              Eilen
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                this.setState({
+                  date: "",
+                })
+              }
+            >
+              Kaikki
+            </button>
+          </form>
         </div>
         <table className="table">
           <thead className="thead-light">
             <tr>
-              {/* <th>User</th> */}
-              <th>Ruoka</th>
+              <th style={{ width: "30%" }}>Ruoka</th>
               <th>Määrä (g)</th>
               <th>Pvm</th>
               <th>Energia (kCal)</th>
@@ -215,7 +162,6 @@ export default class FoodsList extends Component {
           <tbody>{this.foodList()}</tbody>
           <tfoot>
             <tr>
-              {/* <th></th> */}
               <th>Yhteensä</th>
               <th>Määrä</th>
               <th></th>

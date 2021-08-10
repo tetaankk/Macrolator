@@ -1,17 +1,19 @@
-const router = require("express").Router();
-const bcrypt = require("bcryptjs");
-let User = require("../models/user.model");
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
+import express from "express";
+const userRouter = express.Router();
+import bcrypt from "bcryptjs";
+import User from "../models/user.model.js";
+import dotenv from "dotenv";
+dotenv.config();
+import jwt from "jsonwebtoken";
 const jwtSecret = process.env.jwtSecret;
 
-router.get("/", (request, response) => {
+userRouter.get("/", (request, response) => {
   User.find()
     .then((users) => response.json(users))
     .catch((err) => response.status(400).json("Error " + err));
 });
 
-router.post("/add", (request, response) => {
+userRouter.post("/add", (request, response) => {
   const { email, password } = request.body;
 
   // Simple validation on both email and password
@@ -56,4 +58,5 @@ router.post("/add", (request, response) => {
   });
 });
 
-module.exports = router;
+//module.exports = userRouter;
+export default userRouter;

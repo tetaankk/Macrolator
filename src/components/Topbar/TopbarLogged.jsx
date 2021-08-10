@@ -4,37 +4,33 @@ import "./topbar.scss";
 export default function TopbarLogged() {
   return (
     <div className="topBar">
-      <div className="container">
-        <div className="topBarItemContainer">
-          <ul className="topBarItemList">
-            <li className="navbar-item">
-              <p className="navbar-header">MACROLATOR</p>
-            </li>
-            <li className="navbar-item">
-              <Link to="/history" className="nav-link">
-                HISTORIA
-              </Link>
-            </li>
-            <li className="navbar-item">
-              <Link to="/create" className="nav-link">
-                UUSI ANNOS
-              </Link>
-            </li>
-            <li className="navbar-item">
-              <Link
-                to=""
-                className="nav-link nav-link-small"
-                onClick={() => {
-                  localStorage.clear();
-                  window.location = "/";
-                }}
-              >
-                KIRJAUDU ULOS
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ul>
+        <li className="navbar-item">
+          <p className="navbar-header">MACROLATOR</p>
+        </li>
+        <li className="navbar-item">
+          <Link to="/" className="nav-link">
+            HISTORIA
+          </Link>
+        </li>
+        <li className="navbar-item">
+          <Link to="/create" className="nav-link">
+            UUSI ANNOS
+          </Link>
+        </li>
+        <li className="navbar-item">
+          <Link
+            to=""
+            className="nav-link nav-link-small"
+            onClick={() => {
+              localStorage.clear();
+              window.location = "/";
+            }}
+          >
+            KIRJAUDU ULOS
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }

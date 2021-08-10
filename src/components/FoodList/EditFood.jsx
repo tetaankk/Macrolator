@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
+import portionServices from "../../services/portionServices";
+import "./foodlist.scss";
 
 export default class EditFood extends Component {
   constructor(props) {
@@ -28,8 +29,8 @@ export default class EditFood extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/foods/" + this.props.match.params.id)
+    portionServices
+      .get(this.props.match.params.id)
       .then((response) => {
         console.log(response.data);
         this.setState({
@@ -60,13 +61,12 @@ export default class EditFood extends Component {
 
   onChangeDate(date) {
     this.setState({
-      date: date.target.value,
+      date: date,
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
 
     const food = {
       email: this.state.email,
@@ -90,49 +90,31 @@ export default class EditFood extends Component {
         return this.foodFat * (this.amount / 100);
       },
     };
-    console.log(food);
-
-    axios
-      .post(
-        "http://localhost:5000/foods/update/" + this.props.match.params.id,
-        food
-      )
-      .then((res) => console.log(res.data));
-
-    window.location = "/history";
+    portionServices.update(this.props.match.params.id, food);
+    window.location = "/";
   }
 
   render() {
     return (
-      <div>
-        <h3>Edit portion</h3>
+      <div className="foodList">
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Amount (in grams): </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.amount}
-              onChange={this.onChangeAmount}
+          <h3>Muokkaa annosta</h3>
+          <label>Määrä (g): </label>
+          <input
+            type="text"
+            value={this.state.amount}
+            onChange={this.onChangeAmount}
+          />
+          <div>
+            <label>Päivämäärä: </label>
+            <DatePicker
+              selected={this.state.date}
+              onChange={this.onChangeDate}
+              dateFormat="dd/MM/yyyy"
+              className="datepicker"
             />
           </div>
-          <div className="form-group">
-            <label>Date: </label>
-            <div>
-              <DatePicker
-                className="amountInput"
-                selected={this.state.date}
-                onChange={this.state.onChangeDate}
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Edit portion log"
-              className="btn btn-primary"
-            />
-          </div>
+          <button type="submit">Tallenna</button>
         </form>
       </div>
     );

@@ -11,7 +11,7 @@ export default function LoggedPage() {
       <TopbarLogged />
 
       <Switch>
-        <Route path="/history" exact component={FoodsList} />
+        <Route path="/" exact component={FoodsList} />
         <Route path="/edit/:id" exact component={EditFood} />
         <Route path="/create" component={LogPortionView} />
       </Switch>

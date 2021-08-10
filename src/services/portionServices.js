@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:5000/foods/";
+const baseUrl = "https://macrolator.herokuapp.com/foods/";
 let token = null;
 
 const setToken = (newToken) => {
@@ -7,7 +7,11 @@ const setToken = (newToken) => {
 };
 
 const getAll = () => {
-  const request = axios.get(baseUrl);
+  return axios.get(baseUrl);
+};
+
+const get = (id) => {
+  return axios.get(`${baseUrl}${id}`);
 };
 
 const create = (portionObject) => {
@@ -20,11 +24,11 @@ const create = (portionObject) => {
 };
 
 const remove = (id) => {
-  const request = axios.delete(`${baseUrl}/${id}`);
+  return axios.delete(`${baseUrl}/${id}`);
 };
 
 const update = (id, foodObject) => {
-  const request = axios.put();
+  return axios.post(`${baseUrl}update/${id}`, foodObject);
 };
 
-export default { getAll, create, update, remove, setToken };
+export default { getAll, get, create, update, remove, setToken };

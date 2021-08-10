@@ -1,11 +1,12 @@
-const router = require("express").Router();
-let Food = require("../models/food.model");
-let User = require("../models/user.model");
-const auth = require("../middleware/auth");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import express, { response } from "express";
+const foodsRouter = express.Router();
+import Food from "../models/food.model.js";
+import User from "../models/user.model.js";
+import auth from "../middleware/auth.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 const jwtSecret = process.env.jwtSecret;
-const { response } = require("express");
 
 const getTokenFrom = (request) => {
   const authorization = request.get("authorization");
@@ -18,18 +19,25 @@ const getTokenFrom = (request) => {
 // @route GET /foods
 // @desc Get all portions
 // @access Private
-
-router.get("/", (req, res) => {
+foodsRouter.get("/", (req, res) => {
   Food.find()
     .then((foods) => res.json(foods))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+// @route GET /foods/:id
+// @desc Get portion by id
+// @access Private
+foodsRouter.get("/:id", (req, res) => {
+  Food.findById(req.params.id)
+    .then((food) => res.json(food))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 // @route POST /foods/add
 // @desc Add a new portion
 // @access Private
-
-router.post("/add", (req, res) => {
+foodsRouter.post("/add", (req, res) => {
   const token = getTokenFrom(req);
   const decodedToken = jwt.verify(token, jwtSecret);
   if (!token || !decodedToken.id) {
@@ -37,7 +45,6 @@ router.post("/add", (req, res) => {
   }
   console.log(decodedToken);
   const user = User.findOne({ _id: decodedToken.id });
-  /* console.log(user); */
 
   const newFood = new Food({
     email: decodedToken.email,
@@ -60,21 +67,10 @@ router.post("/add", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// @route GET /foods/:id
-// @desc Get portion by id
-// @access Private
-
-router.get("/:id", (req, res) => {
-  Food.findById(req.params.id)
-    .then((food) => res.json(food))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
-
 // @route DELETE foods/:id
 // @desc Delete portion
 // @access Private
-
-router.delete("/:id", (req, res) => {
+foodsRouter.delete("/:id", (req, res) => {
   Food.findByIdAndDelete(req.params.id)
     .then(() => res.json("Food deleted!"))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -83,8 +79,7 @@ router.delete("/:id", (req, res) => {
 // @route POST /foods/:id
 // @desc Eidt a certain portion by id
 // @access Private
-
-router.post("/update/:id", (req, res) => {
+foodsRouter.post("/update/:id", (req, res) => {
   Food.findById(req.params.id)
     .then((food) => {
       food.food = req.body.food;
@@ -106,4 +101,4 @@ router.post("/update/:id", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-module.exports = router;
+export default foodsRouter;

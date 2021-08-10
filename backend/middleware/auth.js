@@ -1,6 +1,9 @@
-require("dotenv").config();
+//require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 const jwtSecret = process.env.jwtSecret;
-const jwt = require("jsonwebtoken");
+//const jwt = require("jsonwebtoken");
+import jwt from 'jsonwebtoken';
 
 function auth(request, response, next) {
   const token = request.header("x-auth-token");
@@ -19,4 +22,4 @@ function auth(request, response, next) {
   }
 }
 
-module.exports = auth;
+export default auth;

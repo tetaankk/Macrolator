@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "../../common.scss";
+import userServices from "../../services/userServices";
 
 export default class Login extends Component {
   constructor(props) {
@@ -37,11 +37,11 @@ export default class Login extends Component {
       password: this.state.password,
     };
 
-    axios
-      .post("http://localhost:5000/auth", user)
-      .then((res) => {
-        localStorage.setItem("currentUser", JSON.stringify(res.data));
-        window.location = "/history";
+    userServices
+      .login(user)
+      .then((response) => {
+        localStorage.setItem("currentUser", JSON.stringify(response.data));
+        window.location = "/";
       })
       .catch((err) => this.setState({ message: err }));
 
@@ -53,35 +53,27 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <form onSubmit={this.onSubmit}>
         <h3 style={{ fontSize: "20px" }}>Kirjaudu sisään</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-field">
-            {this.state.message && <h2>{this.state.message}</h2>}
-            <label>Sähköpostiosoite </label>
-            <input
-              type="email"
-              required
-              placeholder="Sähköpostiosoite..."
-              value={this.state.email}
-              onChange={this.onChangeEmail}
-            />
-          </div>
-          <div className="form-field">
-            <label>Salasana </label>
-            <input
-              type="password"
-              required
-              placeholder="Salasana..."
-              value={this.state.password}
-              onChange={this.onChangePassword}
-            />
-          </div>
-          <div className="form-field">
-            <input type="submit" value="Kirjaudu sisään" />
-          </div>
-        </form>
-      </div>
+        {this.state.message && <h2>{this.state.message}</h2>}
+        <label>Sähköpostiosoite </label>
+        <input
+          type="email"
+          required
+          placeholder="Sähköpostiosoite..."
+          value={this.state.email}
+          onChange={this.onChangeEmail}
+        />
+        <label>Salasana </label>
+        <input
+          type="password"
+          required
+          placeholder="Salasana..."
+          value={this.state.password}
+          onChange={this.onChangePassword}
+        />
+        <button type="submit">Kirjaudu sisään</button>
+      </form>
     );
   }
 }

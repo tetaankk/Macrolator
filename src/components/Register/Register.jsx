@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "../../common.scss";
+import userServices from "../../services/userServices";
 
 export default class Register extends Component {
   constructor(props) {
@@ -32,16 +32,13 @@ export default class Register extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const user = {
+    const newUser = {
       email: this.state.email,
       password: this.state.password,
     };
 
-    axios
-      .post("http://localhost:5000/users/add", user)
-      .then((res) => console.log(res.data));
+    userServices.register(newUser).then((res) => console.log(res.data));
 
-    console.log(user);
     this.setState({
       email: "",
       password: "",
@@ -50,35 +47,26 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div>
+      <form onSubmit={this.onSubmit}>
         <h3 style={{ fontSize: "20px" }}>Luo käyttäjä</h3>
-        <form onSubmit={this.onSubmit}>
-          {/* {this.state.message && <h2>{this.state.message}</h2>} */}
-          <div className="form-field">
-            <label>Sähköpostiosoite: </label>
-            <input
-              type="email"
-              required
-              placeholder="Sähköposti..."
-              value={this.state.email}
-              onChange={this.onChangeEmail}
-            />
-          </div>
-          <div className="form-field">
-            <label>Salasana: </label>
-            <input
-              type="password"
-              required
-              placeholder="Salasana..."
-              value={this.state.password}
-              onChange={this.onChangePassword}
-            />
-          </div>
-          <div className="form-field">
-            <input type="submit" value="Luo käyttäjä" />
-          </div>
-        </form>
-      </div>
+        <label>Sähköpostiosoite: </label>
+        <input
+          type="email"
+          required
+          placeholder="Sähköposti..."
+          value={this.state.email}
+          onChange={this.onChangeEmail}
+        />
+        <label>Salasana: </label>
+        <input
+          type="password"
+          required
+          placeholder="Salasana..."
+          value={this.state.password}
+          onChange={this.onChangePassword}
+        />
+        <button type="submit">Luo käyttäjä</button>
+      </form>
     );
   }
 }

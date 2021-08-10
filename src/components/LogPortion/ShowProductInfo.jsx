@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import ShowPortionInfo from "./ShowPortionInfo";
-import portionService from "../../services/portionServices";
+import portionServices from "../../services/portionServices";
 
 export default function ShowProductInfo(props) {
   const [inputAmount, setInputAmount] = useState("");
@@ -33,7 +33,7 @@ export default function ShowProductInfo(props) {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       const userToken = user.token;
-      portionService.setToken(userToken);
+      portionServices.setToken(userToken);
 
       const foodObject = {
         email: user.email,
@@ -57,9 +57,8 @@ export default function ShowProductInfo(props) {
           return this.foodFat * (this.amount / 100);
         },
       };
-      console.log(foodObject);
-      portionService.create(foodObject);
-      window.location = "/history";
+      portionServices.create(foodObject);
+      window.location = "/";
     }
   };
 
@@ -97,13 +96,14 @@ export default function ShowProductInfo(props) {
             placeholder="Määrä (g)"
             value={inputAmount}
             onChange={handleInputAmountChange}
-            className="amountInput"
+            required
           />
           <ReactDatePicker
             selected={date}
-            className="amountInput"
+            className="datepicker"
             onChange={handleDateChange}
             dateFormat="dd/MM/yyyy"
+            required
           />
           <button type="submit" className="amountButton">
             Tallenna
