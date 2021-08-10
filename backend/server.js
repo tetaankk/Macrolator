@@ -44,6 +44,8 @@ app.use("/api/foods", foodsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/fetch", fetchRouter);
 
+console.log("asd");
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("/../build"));
 
