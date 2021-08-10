@@ -7,12 +7,11 @@ dotenv.config();
 const jwtSecret = process.env.jwtSecret;
 import auth from "../middleware/auth.js";
 import User from "../models/user.model.js";
-import cors from "cors";
 
 // @route POST /auth
 // @desc Login / authenticate user
 // @access Public
-router.post("/", cors(), (request, response) => {
+router.post("/", (request, response) => {
   const body = request.body;
 
   // Simple validation on both email and password
