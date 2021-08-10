@@ -13,6 +13,7 @@ import User from "../models/user.model.js";
 // @access Public
 router.post("/", (request, response) => {
   const body = request.body;
+  console.log(body);
 
   // Simple validation on both email and password
   if (!body.email || !body.password) {
