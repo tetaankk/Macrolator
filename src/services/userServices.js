@@ -1,6 +1,6 @@
 import axios from "axios";
-//const baseUrl = "https://macrolator.herokuapp.com/";
-const baseUrl = "http://localhost:5000/api/";
+const baseUrl = "https://macrolator.herokuapp.com/api/";
+//const baseUrl = "http://localhost:5000/api/";
 
 const login = (user) => {
   console.log(user);

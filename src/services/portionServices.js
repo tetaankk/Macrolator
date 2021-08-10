@@ -1,6 +1,6 @@
 import axios from "axios";
-//const baseUrl = "https://macrolator.herokuapp.com/foods/";
-const baseUrl = "http://localhost:5000/api/foods/";
+const baseUrl = "https://macrolator.herokuapp.com/api/foods/";
+//const baseUrl = "http://localhost:5000/api/foods/";
 let token = null;
 
 const setToken = (newToken) => {
