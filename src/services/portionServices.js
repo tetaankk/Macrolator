@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://macrolator.herokuapp.com/foods/";
+const baseUrl = "https://macrolator.herokuapp.com/foods/";
 let token = null;
 
 const setToken = (newToken) => {
@@ -30,5 +30,4 @@ const remove = (id) => {
 const update = (id, foodObject) => {
   return axios.post(`${baseUrl}update/${id}`, foodObject);
 };
-
 export default { getAll, get, create, update, remove, setToken };
