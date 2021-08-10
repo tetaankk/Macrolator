@@ -1,5 +1,4 @@
 import express from "express";
-const router = express.Router();
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -13,6 +12,7 @@ import User from "../models/user.model.js";
 // @access Public
 
 const authRouter = () => {
+  const router = express.Router();
   router.post("/", (request, response) => {
     const body = request.body;
     console.log(body);
@@ -49,6 +49,7 @@ const authRouter = () => {
       .select("-password")
       .then((user) => res.json(user));
   });
+  return router;
 };
 
 // @route GET /auth/user

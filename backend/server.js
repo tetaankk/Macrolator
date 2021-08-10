@@ -41,7 +41,7 @@ import fetchRouter from "./routes/fetch.js";
 
 app.use("/api/foods", foodsRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/auth", authRouter);
+app.use("/api/auth", authRouter());
 app.use("/api/fetch", fetchRouter);
 
 if (process.env.NODE_ENV === "production") {
