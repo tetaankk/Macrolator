@@ -37,10 +37,6 @@ export default class Login extends Component {
       password: this.state.password,
     };
 
-    userServices.get().then((response) => {
-      console.log(response.data);
-    });
-
     userServices
       .login(user)
       .then((response) => {

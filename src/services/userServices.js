@@ -7,12 +7,8 @@ const login = (user) => {
   return axios.post(`${baseUrl}auth`, user);
 };
 
-const get = () => {
-  return axios.get(`${baseUrl}auth`);
-};
-
 const register = (newUser) => {
   return axios.post(`${baseUrl}users/add`, newUser);
 };
 // eslint-disable-next-line
-export default { login, get, register };
+export default { login, register };

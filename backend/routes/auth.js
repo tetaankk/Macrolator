@@ -1,4 +1,5 @@
 import express from "express";
+const authRouter = express.Router();
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -11,52 +12,41 @@ import User from "../models/user.model.js";
 // @desc Login / authenticate user
 // @access Public
 
-const authRouter = () => {
-  const router = express.Router();
+authRouter.post("/", (request, response) => {
+  const body = request.body;
+  console.log(body);
+  console.log("asd");
 
-  router.get("/", (request, response) => {
-    console.log("called /api/auth");
-    response.status(200).json({ status: "OK" });
-  });
+  // Simple validation on both email and password
+  if (!body.email || !body.password) {
+    return response.status(400).json({ msg: "Please fill all fields" });
+  }
 
-  router.post("/", (request, response) => {
-    const body = request.body;
-    console.log(body);
-    console.log("asd");
+  // Check if user exists
+  const user = User.findOne({ email: body.email }).then((user) => {
+    if (!user) return response.status(400).json({ msg: "User does not exist" });
+    // Validate password
+    bcrypt.compare(body.password, user.password).then((isMatch) => {
+      if (!isMatch)
+        return response.status(400).json({ msg: "Invalid credentials" });
 
-    // Simple validation on both email and password
-    if (!body.email || !body.password) {
-      return response.status(400).json({ msg: "Please fill all fields" });
-    }
+      const userForToken = {
+        email: user.email,
+        id: user._id,
+      };
 
-    // Check if user exists
-    const user = User.findOne({ email: body.email }).then((user) => {
-      if (!user)
-        return response.status(400).json({ msg: "User does not exist" });
-      // Validate password
-      bcrypt.compare(body.password, user.password).then((isMatch) => {
-        if (!isMatch)
-          return response.status(400).json({ msg: "Invalid credentials" });
+      const token = jwt.sign(userForToken, jwtSecret);
 
-        const userForToken = {
-          email: user.email,
-          id: user._id,
-        };
-
-        const token = jwt.sign(userForToken, jwtSecret);
-
-        response.status(200).send({ token, email: user.email });
-      });
+      response.status(200).send({ token, email: user.email });
     });
   });
+});
 
-  router.get("/user", auth, (request, response) => {
-    User.findById(request.user.id)
-      .select("-password")
-      .then((user) => res.json(user));
-  });
-  return router;
-};
+authRouter.get("/user", auth, (request, response) => {
+  User.findById(request.user.id)
+    .select("-password")
+    .then((user) => res.json(user));
+});
 
 // @route GET /auth/user
 // @desc Get user data
