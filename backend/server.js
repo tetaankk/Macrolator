@@ -34,14 +34,14 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+import authRouter from "./routes/auth.js";
 import foodsRouter from "./routes/foods.js";
 import usersRouter from "./routes/users.js";
-import authRouter from "./routes/auth.js";
 import fetchRouter from "./routes/fetch.js";
 
+app.use("/api/auth", authRouter);
 app.use("/api/foods", foodsRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/auth", authRouter);
 app.use("/api/fetch", fetchRouter);
 
 const __dirname = path.resolve();
@@ -49,14 +49,14 @@ const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/../build")));
 
-  app.get("*", (req, res) => {
+  /* app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/../", "build", "index.html"));
-  });
-} else {
+  }); */
+} /* else {
   app.get("/", (req, res) => {
     res.send("Api running...?");
   });
-}
+} */
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
