@@ -11,7 +11,7 @@ import User from "../models/user.model.js";
 // @route POST /auth
 // @desc Login / authenticate user
 // @access Public
-router.post("/", (request, response) => {
+authRouter.post("/", (request, response) => {
   const body = request.body;
   console.log(body);
 
@@ -43,7 +43,7 @@ router.post("/", (request, response) => {
 // @route GET /auth/user
 // @desc Get user data
 // @access Private
-router.get("/user", auth, (request, response) => {
+authRouter.get("/user", auth, (request, response) => {
   User.findById(request.user.id)
     .select("-password")
     .then((user) => res.json(user));
